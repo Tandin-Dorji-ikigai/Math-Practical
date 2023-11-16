@@ -1,1210 +1,884 @@
-# Math-Practical
 
+Regression Analysis
+Least Squares method for fitting a linear relationship (Linear Regression)
 
-Copy of Practice_Questions.ipynb_
-Notebook unstarred
-Practical Test - I, Spring 2023
-CSM301 : Mathematics for Programming III
-B.Sc Computer Science(AI & DS)
-Year II, Semester II
-Time: 2 Hours
-Max. Marks: 50
-
-Rename the file with your Enrollment number on the top immediately on receipt of this question file. All questions are compulsory, and marks are given at the end of each question. Parts of a question should be answered together. Please use Python programming to provide responses to the given questions.
-Question 1
-
-Study the data presented below and answer the following questions:
-
-StaffAgeSalary12515,00022618,00032516,00042314,00053015,00062915,00072312,00083417,00094020,000103016,000115160,000
-
-    Create a dataframe using the information provided in the table above. [2]
-
-    Compute the harmonic mean, variance and mode for the columns labeled 'Age' and 'Salary'. [3]
-
-    Create a bar chart to illustrate the salary data of the staff, and label the axis with the proper column names. [2]
-
-import pandas as pd
 import numpy as np
+
+x = [1, 2, 3, 4, 5]
+y = [3, 4, 5, 6, 8]
+
+order = 1
+f = np.polyfit(x,y,order)
+p = np.poly1d(f)
+
+print(p)
+
+ 
+1.2 x + 1.6
+
+Mean Square Error (MSE)
+
+from sklearn.metrics import mean_squared_error
+y = [11,21,19,17.5,10]
+y_bar = [12,18,19.5,18,14]
+
+mean_squared_error(y,y_bar)
+
+5.3
+
+Correlation Coefficient
+
+x = ([1,3,4,4])
+y = ([2,5,5,8])
+
+z = np.corrcoef(x,y)
+print(z)
+
+[[1.        0.8660254]
+ [0.8660254 1.       ]]
+
+Rank correlation Coefficient
+
+import numpy as np
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
-Double-click (or enter) to edit
-
-#Coverting into dataframe
-
-data_frame = {'Staff':[1,2,3,4,5,6,7,8,9,10,11], 'Age':[25,26,25,23,30,29,23,34,40,30,51],'Salary':[15000,18000,16000,14000,15000,15000,12000,17000,20000,16000,60000]}
-
-df = pd.DataFrame(data_frame)
-df
-
-#Question 2
-
-#Harmonic Mean
-from scipy import stats
-print("The mean of age :", stats.hmean(df['Age'])," Salary :", stats.hmean(df['Salary']) )
-
-#Mode
-
-print("The mean of age :", stats.mode(df['Age'])," Salary :", stats.mode(df['Salary']) )
-
-#Variance
-print("The variance of Age :",df['Age'].var(), " Salary :", df['Salary'].var())
-# print("The variance of age:", stat.)
-
-The mean of age : 28.902714234790153  Salary : 16646.296230880638
-The mean of age : ModeResult(mode=23, count=2)  Salary : ModeResult(mode=15000, count=3)
-The variance of Age : 71.87272727272727  Salary : 181963636.3636363
-
-#Question3 Plotting Barchart
-
-sns.barplot(x = df['Staff'], y = df['Salary'])
-plt.title("Salary Data of Staff")
-
-plt.show()
-
-Question 2
-↳ 7 cells hidden
-Question 3
-↳ 6 cells hidden
-Question 4
-
-You have three bags that each contain 100 marbles:
-
-    Bag 1 has 75 red and 25 blue marbles;
-    Bag 2 has 60 red and 40 blue marbles;
-    Bag 3 has 45 red and 55 blue marbles.
-
-You choose one of the bags at random and then pick a marble from the chosen bag, also at random. What is the probability that the chosen marble is blue? [4]
-
-# P_A be choosing one of the bag at random
-#P_AB be picking a marble from choose bag
-#P_B be chosen marble is blue
-#For bag 1
-P_A = 1/3
-P_B = 25/100
-#P_AB = P_AnB/P_B
-P_AB = (1/3*25/100)/(25/100)
-print("Bag1: ",P_AB)
-
- # For bag2
-P_A1 = 1/3
-P_B1 = 40/100
-#P_AB = P_AnB/P_B
-P_AB1 = ((1/3)*(40/100))/(40/100)
-print("Bag2: ", P_AB1)
-
- # For bag3
-P_A2 = 1/3
-P_B2 = 55/100
-#P_AB = P_AnB/P_B
-P_AB2 = (1/3*55/100)/(55/100)
-print("Bag3: ", P_AB2)
-
-print ("The probability that the chosen marble is blue: ", P_AB*P_AB1*P_AB2)
-
-Bag1:  0.33333333333333326
-Bag2:  0.3333333333333333
-Bag3:  0.33333333333333326
-The probability that the chosen marble is blue:  0.037037037037037014
-
-Question 5
-
-A coin is either fair or biased, with a 75% chance of being biased. The biased coin comes up heads with a probability of 0.6, while the fair coin comes up heads with a probability of 0.5. If we toss the coin and it comes up heads, what is the probability that it is the biased coin? [4]
-
-P_A = ((0.25*0.5)/0.6) + ((0.75*0.5)/0.5)
-P_A
-print("The probability that it is the biased coin: ", P_A)
-
-The probability that it is the biased coin:  0.9583333333333334
-
-Question 6
-
-Assume there are six multiple choice questions in a brief quiz. Each question contains four possible responses, any of which is correct. On every question, a student makes a guess.
-
-    Find the probability that student gets exactly 4 questions right. [3]
-
-    Find the mean, variance, and standard deviation of the distribution. [3]
-
-from scipy.stats import binom
-#Question1
-# p = 1/4 = 0.25 probability of getting correct answer
-
-p = binom.pmf(n = 6, k = 4, p = 0.25)
-
-print("The probability that student gets exactly 4 questions right: ", p , 'or ', 3.3, "%")
-
-The probability that student gets exactly 4 questions right:  0.03295898437499997 or  3.3 %
-
-#Question2
-print( "The mean of the distribution: ", binom.mean(n = 6, p = 0.25))
-print()
-print("The variance of the distribution: ", binom.var(n = 6, p = 0.25))
-print()
-print("The standard deviation of the distribution: ", binom.std(n = 6, p = 0.25))
-
-The mean of the distribution:  1.5
-
-The variance of the distribution:  1.125
-
-The standard deviation of the distribution:  1.0606601717798212
-
-Question 7
-
-The continuous random variable X has probability density function f(x), given by
-
-f(x)={29(5−x),0,2≤x≤5otherwise
-
-Find the E(X2),Var(X), and standard deviation of X. [1.5 + 2 + 0.5]
-
-import sympy as smp
-
-x = smp.Symbol('x')
-
-fx = (2/9)*(5-x)
-px = smp.integrate(fx,(x,2,5))
-# print(px)
-
-fx1 = x* (2/9)*(5-x)
-EX = smp.integrate(fx1, (x, 2,5))
-EX
-
-fx2 = (x**2)*(2/9)*(5-x)
-EX2 = smp.integrate(fx2,(x,2,5))
-print("𝐸(𝑋2): ", EX2 )
-print()
-
-#Variance
-var = EX2 - (EX)**2
-
-print("Variance of X: ", var)
-print()
-
-#standard deviation
-sd = (var)**(0.5)
-print("Standard deviation of X: ", sd)
-
-𝐸(𝑋2):  9.50000000000000
-
-Variance of X:  0.500000000000002
-
-Standard deviation of X:  0.707106781186549
-
-Question 8
-
-Load the built-in dataset 'geyser', which is available in seaborn library and answer the following questions:
-
-    Determine the correlation coefficient for the columns 'duration' and 'waiting'. [1.5]
-
-    Visualize the correlation between the two colmuns using heatmap and display the correlation score. [1.5]
-
-    Calculate the covariance for every possible pair of columns within a dataset. [2]
-
-gs = sns.load_dataset('geyser')
-gs.head()
-
-gdf = gs.select_dtypes(include=(['int', 'float']))
-gdf.head()
-
-#Question1
-
-gdf.corr(method = 'pearson')
-
-#question2
-
-sns.heatmap(gdf.corr(method = 'pearson'), annot=True, cmap='coolwarm')
-
-#Question3
-gs.cov()
-
-Question 9
-
-A company produces boxes of cereal with a weight that follows a uniform distribution between 10 ounces and 12 ounces. What is the probability that a randomly selected box of cereal weighs between 11 ounces and 11.5 ounces? [3]
-
-from scipy.stats import uniform
-
-pu = uniform.cdf(x = 11.5, loc = 10, scale = 2)-uniform.cdf(x=11, loc=10, scale = 2)
-pu
-print("The probability that a randomly selected box of cereal weighs between  11 ounces and  11.5 ounces: ", pu)
-
-The probability that a randomly selected box of cereal weighs between  11 ounces and  11.5 ounces:  0.25
-
-Question 10
-
-Import the 'taxis' dataset, which is a built-in dataset within the seaborn library, and then standardize the 'distance' column using standard normal distribution. Then, consider a scenario where an unknown individual has boarded the taxi, and determine the likelihood of this person traveling a distance greater than 25 kilometers. [5]
-
-taxis = sns.load_dataset('taxis')
-taxis.head()
-
-taxis['distance'].max()
-
-36.7
-
-
-taxis['distance'].min()
-
-0.0
-
-mean = taxis['distance'].mean()
-print("Mean: ",mean)
-
-sd = taxis['distance'].std()
-print("Standard deviation: ",sd)
-
-Mean:  3.0246168195243133
-Standard deviation:  3.8278670010117537
-
-#Normalized
-
-normalized = (taxis['distance']-mean)/(sd)
-normalized.head()
-
-0   -0.372170
-1   -0.583776
-2   -0.432256
-3    1.221407
-4   -0.225874
-Name: distance, dtype: float64
-
-z1 = (25-mean)/sd
-z2 = (36.7-mean)/sd
-
-from scipy.stats import norm
-prob = norm.cdf(z2) - norm.cdf(z1)
-prob
-
-4.708868961422752e-09
-
-The probability of the person traveling a distance greater than  25 kilometers:  4.708868961422752e-09
-
-
-
-
-
-Unit one notes
-
-x = [1,3,4,1.5,6,2,8]
-y = [-2,4,3,6,1,1,10]
-
-import matplotlib.pyplot as plt
-
-plt.scatter(x,y)
-plt.title('Scatter Plot') #To format the chart title
-plt.xlabel('x')           #To format the x-axis title
-plt.ylabel('y')           #To format the y-axis title
-plt.show()
-
-sizes = [10, 40, 60, 80, 100,50,70]
-colors = ['r', 'b', 'y', 'g', 'k','b','b']
-plt.scatter(x, y, s=sizes, c=colors)
-plt.show()
-
-import numpy as np
-x = np.linspace(0, 10, 10000)
-y = np.cos(x)
-
-plt.plot(x, y)
-plt.show()
-
-labels = ['Type 1', 'Type 2', 'Type 3']
-counts = [2, 3, 5]
-
-plt.bar(labels, counts)
-plt.show()
-
-
-
-rom matplotlib import pyplot as plt
-import numpy as np
-
-# Creating dataset
-ds = np.array([22, 87, 5, 43, 56, 73, 55, 54, 11, 20, 51, 5, 79, 31, 27])
-
-# Creating histogram
-fig, ax = plt.subplots(figsize =(8, 5))
-ax.hist(ds, bins = [0, 25, 50, 75, 100])
-
-# Show plot
-plt.show()
-
-
-
-# Import libraries
-from matplotlib import pyplot as plt
-import numpy as np
-
-# Creating dataset
-cars = ['Kia', 'Van', 'EV', 'TESLA', 'Alto', 'Swift']
-
-data = [23, 17, 35, 2, 30, 23]
-
-# Creating plot
-fig = plt.figure(figsize =(9, 6))
-plt.pie(data, labels = cars,autopct='%1.1f%%', explode=(0,0,0,0.2,0,0))
-
-# show plot
-plt.show()
-
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-my_map = np.random.randn(6, 6)
-
-plt.imshow(my_map)
-plt.colorbar()
-plt.show()
-
-
-
-# Calculate arithmetic mean
-import statistics as stat
-
-print('The mean of given data is: ', stat.mean([1,9,5,6,4,7,3,6]))
-
-# Create dataframe
-
-import pandas as pd
-import numpy as np
-
-#Create a DataFrame
-d = {
-    'Name':['Pema','Dechen','Wangmo','Tshewang','Karma','Yangden','Sonam'],
-   'Math_Score':[62,47,55,74,31,77,85],
-   'AI_Score':[89,87,67,55,47,72,76]}
-
-df = pd.DataFrame(d)
-df
-
-
-# mean of the dataframe
-df['AI_Score'].mean()
-
-
-df1 = df[['AI_Score', 'Math_Score']] # Mean of two columns
-df1.mean()
-
-# mean of the specific column
-df['Math_Score'].mean()
-
-# Calculate geometric mean
-from scipy import stats
-
-print(stats.gmean([4,11,15,16,5,7]))
-
-import pandas as pd
-import numpy as np
-from scipy import stats
-
-#Create a DataFrame
-d = {'Name':['Dorji','Sonam','Chador','Shyam','Zangmo','Om','Sushmita'],
-   'Stats_Score':[62,47,55,74,31,77,85],
-   'Algebra_Score':[89,87,67,55,47,72,76]}
-
-df = pd.DataFrame(d)
-df
-
-# Geometric Mean of the column in dataframe
-from scipy import stats
-
-stats.gmean(df.iloc[:,1:3],axis=0)
-
-# Row wise geometric mean of the dataframe
-from scipy import stats
-
-stats.gmean(df.iloc[:,1:3],axis=1)
-
-# Geometric mean of the specific column
-stats.gmean(df.loc[:,"Stats_Score"])
-
-
-# calculate harmonic mean
-from scipy import stats
-
-print(stats.hmean([4,11,15,16,5,7]))
-
-
-import pandas as pd
-import numpy as np
-from scipy import stats
-
-#Create a DataFrame
-d = {'Name':['Dorji','Sonam','Chador','Shyam','Zangmo','Om','Sushmita'],
-   'Stats_Score':[62,47,55,74,31,77,85],
-   'Algebra_Score':[89,87,67,55,47,72,76]}
-
-df = pd.DataFrame(d)
-df
-
-
-# Harmonic Mean of the  column in dataframe
-from scipy import stats
-
-stats.hmean(df.iloc[:,1:3],axis=0)
-
-
-# Row wise harmonic mean of the dataframe
-from scipy import stats
-
-stats.hmean(df.iloc[:,1:3],axis=1)
-
-# Row wise harmonic mean of the dataframe
-from scipy import stats
-
-stats.hmean(df.iloc[:,1:3],axis=1)
-
-
-
-# Row wise harmonic mean of the dataframe
-from scipy import stats
-
-stats.hmean(df.iloc[:,1:3],axis=1)
-
-
-# median of the dataframe
-df.iloc[:,1:4].median()
-
-
-# median of the specific column
-df.loc[:,"ML_Score"].median()
-
-
-# calculate mode or most repeated value
-import statistics as stats
-
-stats.mode(['lion', 'cat', 'cat','dog','tiger'])
-
-
-# Mode of the dataframe (or column mode of the dataframe)
-df.mode()
-
-
-df.corr(method='pearson') #Pairwise correlation of all columns in the dataframe
-
-import seaborn as sns
-sns.heatmap(df.corr(method='pearson'), annot = True)
-
-
-
-Unit 2
-
-A = {1,2,3,7,8}
-B = {3,7,9}
-
-print(1 in A) # to check the elements in the set
-
-# Now define the universal set with the help of arange() function
-# Now define the universal set with the help of arange() function
-universal = set(np.arange(10))
-
-# Type of universal variable above
-type(universal)
-
-A = set(np.arange(2,10,2))
-B = set(np.arange(1,9,3))
-
-# A union B can be calculated by the function union()
-A.union(B)
-
-# A intersection B can be calculated by the function intersection()
-A.intersection(B)
-
-# Difference
-A.difference(B)
-
-# A_Compliment can be calculated using the difference() function
-A_Compliment = universal.difference(A)
-A_Compliment
-
-
-
-/*
-
-
-Example 9: Two unbiased dice are thrown once and the total score is observed. Use a simulation to find the estimated probability that the total score is even or greater than 7?
-
-Solution: Following are the steps to be followed;
-
-    Run the experiment 1000 times (roll 2 dice 1000 times, and sum the result)
-    Keep track of the number of times that the sum was either greater than 7 or even
-    Divide the number from step 2 by the number of iterations (1000)
-
-Awesome! Now let's code this and see what the probability is!
-
-
-import numpy as np
-import random
-
-
-#Function for roll the Dice
-
-def roll_the_dice(n_simulations = 1000):
-  count = 0
-
-  #Each iteration of the for loop is trial
-  for i in range(n_simulations):
-
-    #Roll each Die
-    die1 = random.randint(1,7)
-    die2 = random.randint(1,7)
-
-    #Sum the values to get the score
-    score = die1 + die2
-
-    #decide if we should add it to the count
-    if score % 2 == 0 or score > 7:
-      count += 1
-  return count/n_simulations
-
-string = 'The probability of rolling an even number or greater than 7 is:'
-print(string, np.round(roll_the_dice()*100, 2), '%')
-
-
-*/
-
-/*
-
-
-
-Example 10: A box contains 10 white balls, 20 reds and 30 greens. Draw 5 balls with replacement. what is the probability that:
-
-A. 3 white or 2 red.
-
-B. All 5 are the same color.
-
-Solution: We will pick our balls during each round and count the number of times. Below is code to do that.
-
-import numpy as np
-import random
- # Let's set up the dictionary that we will use for this question
- # This dictionary will allow us to randomly choose a color
-d = {}
-for i in range(61):
-  if i < 10:
-    d[i] = 'white'
-  elif i > 9 and i < 30:
-    d[i] = 'red'
-  else:
-    d[i] = 'green'
-
-#Initialize important variables
-n_simulations = 10000
-part_A_total = 0
-part_B_total = 0
-
-for i in range(n_simulations):
-
-  #make a list of the colors that we choose
-  list = []
-  for i in range(5):
-    list.append(d[random.randint(0,59)])
-
-  #convert it to a numpy
-  list = np.array(list)
-
-  #find the number of each that we picked
-  white = sum(list == 'white')
-  red = sum(list == 'red')
-  green = sum(list == 'green')
-
-  #Keep track if the combination met the above critria
-  if white == 3 and red == 2:
-    part_A_total += 1
-
-  if red == 5 or white == 5 or green == 5:
-    part_B_total +=1
-
-print('The probability of 3 white and 2 red is: ', part_A_total/n_simulations*100, '%')
-print('The probability of all the same color is: ', part_B_total/n_simulations*100, '%')
-*/
-
-
-# A Python program to print all
-# permutations using library function
-from itertools import permutations
-
-# Get all permutations of [1, 2, 3]
-perm = permutations([1, 2, 3])
-
-# Print the obtained permutations
-for i in tuple(perm):
-  print(i)
-
-
-# A Python program to print all
-# permutations of given length
-from itertools import permutations
-
-# Get all permutations of length 2
-perm = permutations([1,2,3], 2)
-
-# Print the obtained permutations
-for i in tuple(perm):
-	print (i)
-
-
-# A Python program to print all
-# combinations of given length
-from itertools import combinations
-
-# Get all combinations of [1, 2, 3]
-# and length 2
-comb = combinations([1, 2, 3], 2)
-
-# Print the obtained combinations
-for i in tuple(comb):
-	print(i)
-
-
-# A Python program to print all
-# combinations of a given length
-from itertools import combinations
-
-# Get all combinations of [1, 2, 3]
-# and length 2
-comb = combinations([1,2,3], 2)
-
-# Print the obtained combinations
-for i in tuple(comb):
-	print (i)
-
-
-# A Python program to print all combinations
-# of given length with unsorted input.
-from itertools import combinations
-
-# Get all combinations of [2, 1, 3]
-# and length 2
-comb = combinations([2, 1, 3], 2)
-
-# Print the obtained combinations
-for i in tuple(comb):
-	print (i)
-
-
-# A Python program to print all combinations
-# with an element-to-itself combination is
-# also included
-from itertools import combinations_with_replacement
-
-# Get all combinations of [1, 2, 3] and length 2
-comb = combinations_with_replacement([1, 2, 3], 2)
-
-# Print the obtained combinations
-for i in tuple(comb):
-	print (i)
-
-
-
-/*
-
-
-We’re going to calculate the probability a student gets an grade A (80% and above) in math, given that they miss 10 or more classes.
-
-import numpy as np
-import pandas as pd
-df = pd.read_csv('student-mat.csv')
-df.head()
-
-len(df)
-
-df.shape
-
-Add a boolean column called grade_A noting if a student achieved 80% or higher as a final score. Original values are on a 0–20 scale so we multiply by 5.
-df['grade_A'] = np.where(df['G3']*5 >= 80, 1, 0)
-
-
-Make another boolean column called high_absenses with a value of 1 if a student missed 10 or more classes.
-df['high_absenses'] = np.where(df['absences'] >= 10, 1, 0)
-df.head()
-
-df['count'] = 1
-df.head()
-
-df = df[['grade_A','high_absenses','count']]
-df.head()
-
-
-pd.pivot_table(df, values='count', index=['grade_A'], columns=['high_absenses'],
-               aggfunc=np.size, fill_value=0)
-
- */
-
-
-
-
-Unit 3
-
-
-#Visualize using bar plot
+#Creating dataframe using Pandas
+x_sample = pd.DataFrame([(106,7),(100,27),(86,2),(101,50),(99,28),(103,29),
+                         (97,20),(113,12), (112,6),(110,17)],
+                        columns=["X","Y"])
+rank_correlation = x_sample.corr(method="spearman")
+print(rank_correlation)
+
+          X         Y
+X  1.000000 -0.175758
+Y -0.175758  1.000000
+
+#Visualizing the Correlation Coefficient:
 fig = plt.figure(figsize = (5,3))
-plt.bar(data.x, data['P(X = x)'], color = 'maroon')
-plt.title('Probability Distribution')
-plt.xlabel('x')
-plt.ylabel('P(X = x)')
+ax = sns.heatmap(rank_correlation, vmin=-1, vmax=1, annot=True)
 plt.show()
 
+R-squared and Adjusted R-squared
 
-The code to visualize the bernoulli distribution for different value of p is given below. As a example, lets take p=0.7.
+x_values = [1,2,3,4,5,6]   # Data points
+y_values = [1,5,25,30,22,45]
+correlation_matrix = np.corrcoef(x_values, y_values)
+corelation_x_y = correlation_matrix[0,1]
+r_squared = corelation_x_y**2
+
+print("R-Squared ", r_squared)
+
+R-Squared  0.8186273105029377
+
+#Adjusted R^2
+adjusted_R2 =  1- (1-r_squared) * (6-1)/(6-1-1)
+print("Adjusted R-Squared ", adjusted_R2)
+
+Adjusted R-Squared  0.7732841381286721
+
+Simple Linear Regression
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/income.data.csv")
+# r"C:\Users\YourUsername\Downloads\income.data.csv"
+df.head()
+
+y = df.happiness
+x = df[['income']]
+
+X_train, X_test, y_train, y_test = train_test_split(x,y, test_size=0.3, random_state=42)
+
+#Visualize the data using scatter plot
+plt.figure(figsize =(5,1) )
+plt.scatter(x,y, marker = "^", color = 'pink')
+plt.title('Happiness Vs Income Plot')
+plt.xlabel('Income')
+plt.ylabel('Happiness')
+
+The RMSE value:  0.761
+
+The R_Squared value: 71.848 %
+
+Multiple Linear Regression
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import MinMaxScaler
+
+df = pd.read_csv("/content/50_Startups.csv")
+df.head()
+
+#Data Visualize Using PairPlot
 
 import matplotlib.pyplot as plt
-from scipy.stats import bernoulli
-# Instance of Bernoulli distribution with parameter p = 0.7
-bd = bernoulli(0.7)
-
-# Outcome of experiment can take value as 0, 1
-X = [0, 1]
-
-# Create a bar plot; Note the usage of "pmf" function to determine the
-#probability of different values of random variable
-plt.figure(figsize=(5,3))
-plt.bar(X, bd.pmf(X), color='green')
-plt.title('Bernoulli Distribution (p=0.7)', fontsize='12')
-plt.xlabel('Values of Random Variable X (0, 1)', fontsize='12')
-plt.ylabel('Probability', fontsize='12')
+import seaborn as sns
+fig = plt.figure(figsize = (5,3))
+sns.pairplot(df, kind = "scatter", hue = 'State')
 plt.show()
 
-
-/*
-An exciting computer game is released. Sixty percent of players complete all the levels. Thirty percent of them will then buy an advanced version of the game. Among 15 users, what is the expected number of people who will buy the advanced version? What is the probability that at least two people will buy it?
-
-from scipy.stats import binom
-
-#Calculate first expected value or mean
-E_X = binom.moment(1, 15, 0.18)
-print('Expectation of X is:', round(E_X,2))
-
-#calculate binomial probability
-result_0 = binom.pmf(k=0, n=15, p=0.18)
-result_1 = binom.pmf(k=1, n=15, p=0.18)
-
-#Print the result
-print("Binomial Probability when X = 0: ", round(result_0, 2),
-      '\nBinomial Probability when X = 1:', round(result_1, 2))
-
-The required probability that is P(X≥2)=1−P(0)−P(1)
-
-required_prob = 1 - result_0 - result_1
-print('The required probability: ', round(required_prob, 2))
-/*
-
-
-#Setting the values of n and p
-n, p = 15, 0.18
-
-#Defining the list of x values
-x = list(range(n+1))
-
-#Create DataFrame which consist of x, pmf, and cdf
-rv = binom(n, p)
-df = pd.DataFrame({'x': x, 'pmfs': rv.pmf(x), 'cdfs': rv.cdf(x)})
-df.head()
+#Create the figure object
 
 plt.figure(figsize = (5,3))
-plt.bar(x, df.pmfs, color = 'green')
-plt.xlabel('x')
-plt.ylabel('Probabilities')
-plt.title('Probability Distribution')
+ax = df.groupby(["State"])['Profit'].mean().plot.bar(fontsize = 12)
+ax.set_title("Average profit for different states", fontsize =12)
+ax.set_xlabel("State")
+ax.set_ylabel("Profit")
 plt.show()
 
+#Handling Categorical Variables:
+df['NewYork_State'] = np.where(df['State']== "New York", 1,0)
+df['California_State'] = np.where(df["State"]== "California", 1, 0)
+df['Florida_State'] = np.where(df['State'] == "Florida",1,0)
 
+#Drop the original column state from the dataframe
+df.drop(columns = ["State"],axis =1, inplace = True)
+
+#Slice the dataset into the predictor variables and target variable
+X = df.drop("Profit",axis = 1)
+y = df["Profit"]
+
+#Splitting the data traning set and test set
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.2, random_state=0)
+
+#Applying the mdel
+from sklearn.linear_model import LinearRegression
+
+#Creating an object of LinearRegression class
+LR = LinearRegression()
+
+#Fitting the traning data
+
+LR.fit(X_train, y_train)
+
+
+y_pred = LR.predict(X_test)
+y_pred
+
+array([103015.20159796, 132582.27760816, 132447.73845174,  71976.09851258,
+       178537.48221055, 116161.24230165,  67851.69209676,  98791.73374687,
+       113969.43533012, 167921.0656955 ])
+
+#PRedicting the values
+
+pred_df = pd.DataFrame({"Actual Value":y_test, "Predicted Value":y_pred, "Difference":y_test-y_pred})
+pred_df.head()
+
+#compare the y_prediction values with the original values
+from sklearn.metrics import r2_score
+from sklearn.metrics  import mean_squared_error
+
+score = r2_score(y_test, y_pred)
+print("r2 Score is: ",score)
+print("Mean_Squared_Error is: ", mean_squared_error(y_test, y_pred))
+print("Root_Mean_Squared_error is:", np.sqrt(mean_squared_error(y_test,y_pred)))
+
+r2 Score is:  0.9347068473282424
+Mean_Squared_Error is:  83502864.03257748
+Root_Mean_Squared_error is: 9137.990152794951
+
+#Adjusted R-Squared
+
+Adj_r2 = 1 - (1-score) * (len(y)-1)/(len(y) - X.shape[1] - 1)
+print("Adjusted Accuracy: ", round(Adj_r2,3))
+
+Adjusted Accuracy:  0.926
+
+Polynomial Regression
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+dataset = pd.read_csv("/content/Position_Salaries.csv")
+dataset.head()
+
+#Splitting the data into features and labels
+
+X = dataset["Level"]
+y = dataset["Salary"]
+
+#Fitting the curve of degree four
+
+order =3
+fit = np.polyfit(X,y, order)
+poly = np.poly1d(fit)
+print(poly)
+
+      3             2
+4120 x - 4.855e+04 x + 1.807e+05 x - 1.213e+05
+
+#The polynomial regression results visualization
 plt.figure(figsize = (5,3))
-plt.plot(x, df.cdfs, color = 'maroon')
-plt.xlabel('x')
-plt.ylabel('cdfs')
-plt.title('Cumulative Distribution')
+model_x = np.linspace(min(X),max(X), 2*len(X))
+model_y = poly(model_x)
+plt.plot(model_x, model_y, "-*",X,y,"^")
+plt.xlabel("Position Level(PL)")
+plt.ylabel("Salary of employess")
+plt.title("Position Level Vs Salary")
 plt.show()
 
-mean = binom.mean(n = 15, p = 0.18)
-var = binom.var(n = 15, p = 0.18)
-std = binom.std(n = 15, p = 0.18)
+#A new result prediction with polynomial regression
 
-print('\nMean: ', round(mean, 2), '\nVariance: ', round(var, 2),
-      '\nStandard deviation: ', round(std, 2))
+xnew = [[6.5]]
+ypred = poly(xnew)
+print("The Predicted Value is :", ypred)
 
+The Predicted Value is : [[133259.46969697]]
 
-from scipy.stats import geom
-import matplotlib.pyplot as plt
+#Quantative Measure(MSE)
 
-p_6 = geom.pmf(k = 6, p = 0.04) #Mass function of geometric distribution
-print('Prob. of first defective:', round(p_6, 3))
+from sklearn.metrics import mean_squared_error
+y_true = dataset[['Salary']]
+y_pred = poly(dataset[['Level']])
+mse_Q1 = mean_squared_error(y_true, y_pred)
+print("The MSE value is :", round(mse_Q1, 3))
 
-from scipy.stats import geom
-import matplotlib.pyplot as plt
+The MSE value is : 1515662004.662
+
+#R-squared to check the accuracy of the prediction
+
+from sklearn.metrics import r2_score
+r_square = r2_score(y_true, y_pred)
+print("The R-Sqared value is:", round(r_squared*100,3), "%")
+
+The R-Sqared value is: 81.863 %
+
+#Logistic Regression
+
 import pandas as pd
 
-# X = Discrete random variable representing number of throws
-# p = Probability of the perfect throw
-#Create a DataFrame which consist of x, pmfs, and cdfs
-x = list(range(1,11))
-p = 0.6
-df = pd.DataFrame({'x': x, 'pmfs':geom.pmf(x, p), 'cdfs': geom.cdf(x, p)})
-df.head()
+col_names = ['pregnant', 'glucose', 'bp', 'skin', 'insulin', 'bmi', 'pedigree', 'age', 'label']
+pima = pd.read_csv('/content/diabetes.csv', header=None, names=col_names)
+pima = pima.iloc[1:]
+pima.head()
 
-fig = plt.subplots(figsize=(5, 3))
-plt.bar(x, df.pmfs, color = 'green')
-plt.ylabel("Probability")
-plt.xlabel("X - No. of Throws")
-plt.title("No. of Throws Vs Probability")
-plt.show()
+#Selecting Features
+#Split dataset in features and target variable
 
-fig = plt.subplots(figsize=(5, 3))
-plt.plot(x, df.cdfs, color = 'maroon')
-plt.ylabel("cdf")
-plt.xlabel("X - No. of Throws")
-plt.title("No. of Throws Vs cdfs")
-plt.show()
+feature_cols = ['pregnant', 'insulin', 'bmi', 'age', 'glucose', 'bp', 'pedigree']
+X = pima[feature_cols]
+y = pima.label
 
-mean = geom.mean(p = 0.6)
-var = geom.var(p = 0.6)
-std = geom.std(p = 0.6)
+#Splitting the data
 
-print('\nMean: ', round(mean,2), '\nVariance: ', round(var,2),
-      '\nStandard deviation: ', round(std,2))
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size = 0.25)
+scaler = MinMaxScaler()
+X_train = pd.DataFrame(scaler.fit_transform(X_train),columns=X_train.columns)
+X_test = pd.DataFrame(scaler.transform(X_test),columns=X_test.columns)
 
 
-from scipy.stats import poisson
+#Model Development and prediction
 
-#Generate random values from Poisson distribution with mean=3 and sample size=10
-poisson.rvs(mu = 3, size = 10)
+logreg = LogisticRegression()
 
+#fit the model with data
+mod1 = logreg.fit(X_train,y_train)
 
-from scipy.stats import poisson
+#test our model
+pred1 = logreg.predict(X_test)
 
-#calculate probability
-prob = poisson.pmf(k=5, mu=3)
-print('Required prob.: ', round(prob, 4))
+from sklearn.metrics import accuracy_score
+accuracy_score (y_true=y_test, y_pred = pred1)
 
+0.7916666666666666
 
-from scipy.stats import poisson
+Sampling Techniques
+Simple Random Sampling
 
-#calculate probability
-prob = poisson.cdf(k=4, mu=7)
-print('Required prob.: ', round(prob, 4))
-
-
-from scipy.stats import poisson
-
-#calculate probability
-prob = 1 - poisson.cdf(k=20, mu=15)
-print('Required prob.: ', round(prob, 4))
-
-
-from scipy.stats import poisson
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-
-x = np.linspace(1,10,10) # Values X takes
-
-#Create DataFrame which consist of x, pmfs, and pdfs
-df = pd.DataFrame({'x': x, 'pmfs':poisson.pmf(x, mu = 7),
-                   'cdfs': poisson.cdf(x, mu = 7)})
+#Read the data
+df=pd.read_csv("/content/Employee_monthly_salary.csv")
 df.head()
 
+#Taking 200 units
+df.sample(200)
 
-fig = plt.figure(figsize = (5,3))
-plt.bar(x, df.pmfs, color = 'maroon') # Visualize using bar chart
-plt.xlabel('X = x')
-plt.ylabel('Prob. mass functions')
-plt.title('Poisson Distribution')
-plt.show()
+Systematic Sampling
 
-fig = plt.figure(figsize = (5,3))
-plt.plot(x, df.cdfs, color = 'green') # Visualize using line plot
-plt.xlabel('X = x')
-plt.ylabel('cdf')
-plt.title('cdfs vs. x values')
-plt.show()
+df.iloc[0:1802:10]
 
+Stratified Sampling
 
+df_male = df[df["Gender"]=="M"]
+df_male.head()
 
-mean = poisson.mean(mu = 7)
-var = poisson.var(mu = 7)
-std = poisson.std(mu = 7)
+df_male.sample(200)
 
-print('\nMean: ', round(mean,2), '\nVariance: ', round(var,2),
-      '\nStandard deviation: ', round(std,2))
+Cluster Sampling
 
-
-#Using Sympy library
-import sympy as smp
-
-x = smp.Symbol('x')
-
-p_x = smp.integrate(x, (x, 0, 0.5))
-
-print('The probability is: ', round(p_x,3))
-
-
-
-/*
-
-
-
-Example 2: A random variable X has density
-f(x)=3x−4,x≥1
-
-    Check whether f(x) is density function.
-    If f(x) is density function, then find E(X), Var(X), and Standard deviation (σ).
-
-	
-#Solution of part 1, to check f(x) is pdf, integral of f(x) should be equal to 1.
-import sympy as smp
-
-x = smp.Symbol('x')
-fx = 3*x**(-4)
-
-smp.integrate(fx, (x, 1, smp.oo))
-
-#It is pdf since integral over the limit is 1.
-
-#Solution of part 2, E(X)
-import sympy as smp
-
-x = smp.Symbol('x')
-fx1 = x*3*x**(-4)
-E_X = smp.integrate(fx1, (x, 1, smp.oo))
-print('Expectation of X is:', E_X)
-
-#Var(X) = E(X^2) - (E(X))^2
-fx2 = (x**2)*(3)*(x**(-4))
-E_X2 = smp.integrate(fx2, (x, 1, smp.oo))
-print('Expectation of X^2 is:', E_X2)
-
-Var_X = E_X2 - (E_X)**2
-print('Variance of X is: ', Var_X)
-
-#Standard deviation
-
-std_X = (Var_X)**(0.5)
-print('The standard deviation of X is: ', std_X)	
-
-*/
-
-
-/*
- If X is uniformly distributed over (0,10), calculate the probability that a) X<3, b) X>7, c) 1<X<6.
-	
-#P(X < 3)
-from scipy.stats import uniform
-prob = uniform(loc = 0, scale = 10).cdf(3) - uniform(loc = 0, scale = 10).cdf(0)
-print('P(X < 3):', prob)
-
-#P(X > 7)
-prob = uniform.cdf(x = 10, loc = 0,  scale = 10) - uniform.cdf(x = 7, loc = 0,
-                                                               scale = 10)
-print('P(X > 7):', round(prob, 3))
-
-#P(1 < X < 6)
-prob = uniform.cdf(x = 6, loc = 0,  scale = 10) - uniform.cdf(x = 1, loc = 0,
-                                                              scale = 10)
-print('P(1 < X < 6):', prob)
-
-#Find P(17 < X < 19) if X is uniformly distributed
-from scipy.stats import uniform
-#'loc': the minimum point of the distribution
-#'scale': is the range of the interval
-prob = uniform(loc = 15, scale = 10).cdf(19) - uniform(loc = 15, scale = 10).cdf(17)
-print('The probability that bird weighs between 17 and 19 grams is:', prob)
-
-*/
-
-
-	In this example we can see that by using numpy.random.uniform() method, we are able to get the random samples from uniform distribution and return the random samples.
-import numpy as np
-
-size = (5,3) #5 rows and 3 columns
-
-sample = np.random.uniform(0, 1, size)
-print(sample)
-
-
-n the problem below, we will create a dataframe which consist of probability density functions and cumulative distribution functions for the values of x, and visualize the distributions. Furthermore, we will continue to find the mean and variance of the distribution using Python.
-
-from scipy.stats import uniform
 import pandas as pd
 import numpy as np
 
-x = np.linspace(1,10,100)
-unif = uniform(loc = 0, scale = 20)
+#make this example reproducible
+np.random.seed(0)
 
-#Create dataframe which consist of x, pdfs, and cdfs of uniform random variable.
-df = pd.DataFrame({'x': x, 'pdfs': unif.pdf(x), 'cdfs': unif.cdf(x)})
+#create DataFrame
+df = pd.DataFrame({'tour': np.repeat(np.arange(1,11), 20),
+                   'experience': np.random.normal(loc=7, scale=1, size=200)})
+
 df.head()
 
-fig = plt.figure(figsize = (5,3))
-plt.bar(df.x, df.pdfs, color = 'green')
-plt.title('Uniform distribution')
-plt.xlabel('X values')
-plt.ylabel('pdfs')
-plt.show()
+#randomly choose 4 tour groups out of the 10
+clusters = np.random.choice(np.arange(1,11), size=4, replace = False)
 
-fig = plt.figure(figsize = (5,3))
-plt.plot(df.x, df.cdfs, color = 'maroon')
-plt.title('Cumulative distribution')
-plt.xlabel('X values')
-plt.ylabel('cdfs')
-plt.show()
+#define sample as all members who belong to one of the 4 tour groups
+cluster_sample = df[df['tour'].isin(clusters)]
 
-mean = uniform.mean(loc = 0, scale = 20)
-var = uniform.var(loc = 0, scale = 20)
-std = uniform.std(loc = 0, scale = 20)
+#view first six rows of sample
+cluster_sample
 
-print('\nMean: ', round(mean,2), '\nVariance: ', round(var,2),
-      '\nStandard deviation: ', round(std,2))
+clusters #Randomly selected clusters
 
+array([ 1,  6, 10,  8])
 
+#find how many observations came from each tour group
+cluster_sample['tour'].value_counts()
 
-/*
-Suppose we want to know the probability of a certain component lasting beyond T=10 years where T is modeled as an exponential random variable with 1λ=5 years. Then, we have
-1−FX(10)=e−2≈0.135.
+1     20
+6     20
+8     20
+10    20
+Name: tour, dtype: int64
 
-from scipy.stats import expon
+UnderSampling
 
-#Calculate probability that x is less than 10 when mean rate is 5
-expon.cdf(x = 10, scale = 5)
-
-#Then the required probability is given by
-prob = 1 - expon.cdf(x = 10, scale = 5)
-print('The required probability is:', round(prob,3))
-
-from scipy.stats import expon #Import required libraries
-import pandas as pd
-
-
-
-Similar to the uniform distribution above, we will create a dataframe which consist of probability density functions and cumulative distribution functions for the values of x, and visualize the distributions. Furthermore, we will continue to find the mean and variance of the distribution using Python. If λ=4, then
-
-
-#Define x_values
-x = np.linspace(1,20,1000)
-exponential = expon(scale = 4)
-
-#Create dataframe which consist of x, pdfs, and cdfs of uniform random variable.
-df = pd.DataFrame({'x': x, 'pdfs': exponential.pdf(x), 'cdfs': exponential.cdf(x)})
-df.head()
-
-fig = plt.figure(figsize = (5,3))
-plt.plot(df.x, df.pdfs, color = 'green')
-plt.title('Exponential distribution')
-plt.xlabel('X values')
-plt.ylabel('pdfs')
-plt.show()
-
-
-fig = plt.figure(figsize = (5,3))
-plt.plot(df.x, df.cdfs, color = 'maroon')
-plt.title('Cumulative distribution')
-plt.xlabel('X values')
-plt.ylabel('cdfs')
-plt.show()
-
-
-*/
-
-
-
-
-Similar to the distributions above, we will create a dataframe which consist of probability density functions and cumulative distribution functions for the values of x, and visualize the distributions. Furthermore, we will continue to find the mean and variance of the distribution using Python. If μ=3,σ=2, then
-
-
-from scipy.stats import norm
-import pandas as pd
+#import Libraries
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
+from collections import Counter
 
-
-#Define x values and find pdfs and cdfs of normal distribution
-x = np.linspace(-20,20,1000)
-normal = norm(loc = 3, scale = 2) #Where loc = mean, and scale = standard deviation
-df = pd.DataFrame({'x': x, 'pdfs': normal.pdf(x), 'cdfs': normal.cdf(x)})
+df = sns.load_dataset('diamonds')
 df.head()
 
-fig = plt.figure(figsize = (5,3))
-plt.plot(df.x, df.pdfs, color = 'green')
-plt.title('Normal(Gaussian) distribution')
-plt.xlabel('X values')
-plt.ylabel('pdfs')
+#Visualize the dataset
+fig = plt.figure(figsize = (4,4))
+sns.countplot(x = df['cut'])
+plt.title('Histogram of Cut features')
 plt.show()
 
-fig = plt.figure(figsize = (5,3))
-plt.plot(df.x, df.cdfs, color = 'maroon')
-plt.title('Cumulative distribution of Normal RV')
-plt.xlabel('X values')
-plt.ylabel('cdfs')
+print(sorted(Counter(df['cut']).items())) #Count unique values
+
+[('Fair', 1610), ('Good', 4906), ('Ideal', 21551), ('Premium', 13791), ('Very Good', 12082)]
+
+X = df         #Define the vairables
+Y = df['cut']
+
+X.drop('cut', axis = 1, inplace = True) #Drop 'cut' column from X
+
+#Implementation
+from imblearn.under_sampling import RandomUnderSampler
+rus = RandomUnderSampler(random_state = 0)
+X_resampled, Y_resampled = rus.fit_resample(X,Y)
+print(sorted(Counter(Y_resampled).items()),Y_resampled.shape)
+
+[('Fair', 1610), ('Good', 1610), ('Ideal', 1610), ('Premium', 1610), ('Very Good', 1610)] (8050,)
+
+OverSampling
+
+#Import libraries
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from collections import Counter
+
+df = sns.load_dataset('diamonds')
+df.head()
+
+#Visualize the dataset
+fig = plt.figure(figsize = (4,3))
+sns.countplot(x = df['cut'])
 plt.show()
 
+print(sorted(Counter(df['cut']).items())) #Count unique values
 
-Furthermore, find mean, variance, and standard deviation of the distribution.
+[('Fair', 1610), ('Good', 4906), ('Ideal', 21551), ('Premium', 13791), ('Very Good', 12082)]
 
-mean = norm.mean(loc = 3, scale = 2)
-var = norm.var(loc = 3, scale = 2)
-std = norm.std(loc = 3, scale = 2)
+X = df         #Define the vairables
+Y = df['cut']
 
-print('\nMean: ', round(mean,2), '\nVariance: ', round(var,2),
-      '\nStandard deviation: ', round(std,2))
+#Implementation
+from imblearn.over_sampling import RandomOverSampler
+ros = RandomOverSampler(random_state = 0)
+X_resampled, Y_resampled = ros.fit_resample(X, Y)
+print(sorted(Counter(Y_resampled).items()), Y_resampled.shape)
 
-
-/*
-Suppose the average height of male students in a university is 175cm with a standard deviation of 6cm. What is the probability that a randomly selected male student is between 170cm and 180cm tall?
-
-#Using python
-from scipy.stats import norm
-mean  = 175
-sd = 6
-
-#Calculate z-score
-z1 = (170 - mean) / sd
-z2 = (180 - mean) / sd
-
-#Calculate probability
-prob = norm.cdf(z2) - norm.cdf(z1)
-print('The required probability:', prob)
+[('Fair', 21551), ('Good', 21551), ('Ideal', 21551), ('Premium', 21551), ('Very Good', 21551)] (107755,)
 
 
-Suppose we have data of the heights of adults in a town and the data follows a normal distribution, we have a sufficient sample size with mean equals 5.3 and the standard deviation is 1.
+Inferential StatisTics
+Statistical Hypothesis
 
-    Probability of height to be under 4.5 ft.
-    Probability that the height of the person will be between 6.5 and 4.5 ft.
-
-
-#Probability of height to be under 4.5 ft.
-prob_1 = norm(loc = 5.3 , scale = 1).cdf(4.5)
-print('Prob. of height under 4.5ft:', prob_1)
-
-#probability that the height of the person will be between 6.5 and 4.5 ft.
-
-cdf_upper_limit = norm(loc = 5.3 , scale = 1).cdf(6.5)
-cdf_lower_limit = norm(loc = 5.3 , scale = 1).cdf(4.5)
-
-prob_2 = cdf_upper_limit - cdf_lower_limit
-print('Prob. of in between 6.5ft and 4.5ft:', prob_2)
-*/
-
-
-
-
-Example 4: First, load the built-in dataset 'tips' from the seaborn library and standardize the 'tip' column using standard normal distribution. Next, assume a random customer visits the restaurant, what is the probability that the customer will tip between $4 and $8?
-#Using python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import norm
+
+Z_Cal = (153.8 - 150) / (2/np.sqrt(4))
+Z_Cal
+
+3.8000000000000114
+
+#Area on the left
+norm.cdf(-1.96)
+
+0.024997895148220435
+
+#If you dont remember the critical point, then use ppf.
+norm.ppf(0.025)
+
+-1.9599639845400545
+
+#Area to the right
+norm.sf(1.96)
+
+0.024997895148220435
+
+#Inverse of sf
+norm.isf(0.025)
+
+1.9599639845400545
+
+p_value = 2 * norm.sf(3.8)
+p_value
+
+0.00014469608785023995
+
+Central Limit Theorem
+
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-#Load dataset
-data = sns.load_dataset('tips')
-data.head()
+#Roll a die 1 million times
+one_m = np.random.randint(1,7,1000000)
 
-df = data['tip']
+# Visualize the distribution
+sns.displot(x = one_m, bins = 6)
+plt.show( )
 
-#Standardize the 'tip' column
-normalized = (df - df.mean()) / (df.std())
-normalized.head()
+#Mean of the distribution
+np.mean(one_m)
 
-z1 = (4 - df.mean()) / (df.std())
-z2 = (8 - df.mean()) / (df.std())
+3.499392
 
-#Required probability P(4 < X < 8) or P(z1 < Z < z2)
-prob = norm.cdf(z2) - norm.cdf(z1)
-print('The prob. that the customer will tip between $4 to $8:', prob)
+#Standard deviation of the distribution
+np.std(one_m)
+
+1.7075917633720301
+
+#Reshape the one_m distribution
+mean4 = one_m.reshape(250000,4).mean(axis = 1)
+
+#Now plot the mean4
+sns.displot(x = mean4, bins = 20)
+plt.xlim(0,6)
+plt.show()
+
+#Find the mean of mean4
+np.mean(mean4)
+
+3.499392
+
+#Standard deviation of mean4
+np.std(mean4)
+
+0.8547550118811823
+
+One Smaple Z - Test
+
+#Import the required libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+from statsmodels.stats import weightstats
+
+#Read csv file
+df = pd.read_csv('Machine1.csv')
+df.head()
+
+#Take this mean as a population mean
+df.describe()
+
+#Let us visualize the distribution
+sns.displot(data = df, x = 'Machine 1')
+plt.show()
+
+#Let us try one more, box plot
+sns.catplot(data = df, y = 'Machine 1', kind = 'box')
+plt.show()
+
+#Now, we want to do one sample Z test
+weightstats.ztest(x1 = df['Machine 1'], value = 150, alternative = 'two-sided')
+
+#Using the stats we dont have Z test, we just have t test, using that we get
+stats.ttest_1samp(df['Machine 1'], 150)
+
+One sample t test
+
+#Import the required libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+from statsmodels.stats import weightstats
+
+#Define the sample
+volume = pd.Series([148.5, 153.4,150.9,151.2])
+
+#Find the summary of the data
+volume.describe()
+
+count      4.000000
+mean     151.000000
+std        2.004994
+min      148.500000
+25%      150.300000
+50%      151.050000
+75%      151.750000
+max      153.400000
+dtype: float64
+
+stats.ttest_1samp(volume, 150)
+
+TtestResult(statistic=0.997509336107632, pvalue=0.3920333832606524, df=3)
+
+One Proportion Test using Python
+
+#Import the required libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+
+#Output will be p - value
+stats.binom_test(14, 100, p = 0.21, alternative = 'two-sided')
+
+<ipython-input-143-901ffbcaa03c>:2: DeprecationWarning: 'binom_test' is deprecated in favour of 'binomtest' from version 1.7.0 and will be removed in Scipy 1.12.0.
+  stats.binom_test(14, 100, p = 0.21, alternative = 'two-sided')
+
+0.10920815720825927
+
+One Variance Test
+
+#Importing required Libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+
+# Chi-square plot
+x_ax = np.linspace(0, 100, 101)
+y_ax = stats.chi2.pdf(x_ax, df = 50)#df = degrees of freedom
+sns.relplot(x = x_ax, y = y_ax, kind = 'line')
+plt.show()
+
+#Chi-Square calculated value
+chi_sq_cal = (51-1)*(2.35**2)/(2**2)
+chi_sq_cal
+
+69.03125000000001
+
+#Critical value of chi-square
+stats.chi2.isf(0.1, 50)
+
+63.167121005726315
+
+Two sample Z
+
+#Import libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from statsmodels.stats import weightstats
+import scipy.stats as stats
+
+#Read the data
+df = pd.read_csv('Two+Machines.csv')
+df.head()
+
+#Statistical Summary
+df.describe()
+
+#Visualize the data
+sns.catplot(data = df, x = 'Machine', y = 'Volume', kind = 'box')
+plt.show()
+
+#Filter that data values
+m1 = df[df['Machine'] == 'Machine 1']['Volume']
+
+m2 = df[df['Machine'] == 'Machine 2']['Volume']
+
+#Z clculated
+weightstats.ztest(m1, m2)
+
+#Since sample size is smaller, we can use t test as well
+stats.ttest_ind(m1, m2, equal_var = True)
+
+Two sample t
+
+#Import libraries
+import numpy as np
+import scipy.stats as stats
+
+m1 = [150, 152, 154, 152, 151]
+m2 = [156, 155, 158, 155, 154]
+
+#t Calculated
+statistic, pvalue = stats.ttest_ind(m1, m2, equal_var = False)
+
+#Conclusion
+alpha = 0.05
+if pvalue > alpha:
+  print('No difference')
+else:
+  print('There is difference')
+
+There is difference
+
+Paired t test
+
+import numpy as np
+import pandas as pd
+import scipy.stats as stats
+
+#Define
+bp_before = [120, 122, 143, 100, 109]
+bp_after = [122, 120, 141, 109, 109]
+
+#T calculated value
+statistic, pvalue = stats.ttest_rel(bp_before, bp_after)
+statistic
+
+-0.6864064729836442
+
+#Conclusion
+alpha = 0.05
+if pvalue > alpha:
+  print('No difference')
+else:
+  print('There is difference')
+
+No difference
+
+Two Proportions Test
+
+#Follow the same example above:
+import statsmodels.stats.proportion as proportion
+from statsmodels.stats import proportion
+
+#Calculated values
+result = proportion.test_proportions_2indep(30, 200, 10, 100, method = 'score')
+
+pvalue = result[1]
+pvalue
+
+0.2305443235633593
+
+ #Conclusion
+alpha = 0.1
+if pvalue > alpha:
+  print('No difference')
+else:
+  print('There is difference')
+
+No difference
+
+Two Variance Test
+
+#Follow the same example above
+import scipy.stats as stats
+from scipy.stats import f
+
+#F calculated
+F_cal = 11/(1.1**2)
+F_cal
+
+9.09090909090909
+
+#Critical value on the right
+f.isf(0.05, 4, 7)
+
+4.120311726897633
+
+#Critical value on the left
+f.isf(0.95, 4, 7)
+
+0.1640901524729093
+
+####ANOVA test
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+import statsmodels.stats.oneway as oneway
+
+m1 = [150, 151, 152, 152, 151, 150]
+m2 = [153, 152, 148, 151, 149, 152]
+m3 = [156, 154, 155, 156, 157, 155]
+
+#F calculated
+statistic, pvalue = stats.f_oneway(m1, m2, m3)
+alpha = 0.05
+
+if pvalue > alpha:
+  print('No significant difference')
+else:
+  print('There is significant difference')
+
+There is significant difference
+
+#Or you may follow this method
+oneway.anova_oneway((m1, m2, m3), use_var = 'equal')
+
+<class 'statsmodels.stats.base.HolderTuple'>
+statistic = 22.264705882352892
+pvalue = 3.237408550907782e-05
+df = (2.0, 15.0)
+df_num = 2.0
+df_denom = 15.0
+nobs_t = 18.0
+n_groups = 3
+means = array([151.        , 150.83333333, 155.5       ])
+nobs = array([6., 6., 6.])
+vars_ = array([0.8       , 3.76666667, 1.1       ])
+use_var = 'equal'
+welch_correction = True
+tuple = (22.264705882352892, 3.237408550907782e-05)
+
+#ANOVA testing using python for some dataset
+
+mpg = sns.load_dataset('mpg') #mpg meaning miles per gallon
+mpg.head()
+
+#Using groupby method
+mpg.groupby(['origin', 'cylinders'])[['mpg']].mean()
+
+#Lets filter out only having the 4 cylinders
+mpg[mpg['cylinders'] == 4]['mpg']
+
+14     24.0
+18     27.0
+19     26.0
+20     25.0
+21     24.0
+       ... 
+393    27.0
+394    44.0
+395    32.0
+396    28.0
+397    31.0
+Name: mpg, Length: 204, dtype: float64
+
+#Lets perform ANOVA test
+EU =  mpg[(mpg['cylinders'] == 4) & (mpg['origin'] == 'europe')]['mpg']
+JP =  mpg[(mpg['cylinders'] == 4) & (mpg['origin'] == 'japan')]['mpg']
+US =  mpg[(mpg['cylinders'] == 4) & (mpg['origin'] == 'usa')]['mpg']
+
+#F oneway test
+stats.f_oneway(EU, JP, US)
+
+F_onewayResult(statistic=9.411845545485601, pvalue=0.00012379894210177303)
+
+#Using statsmodels
+oneway.anova_oneway((EU, JP, US), use_var = 'equal')
+
+<class 'statsmodels.stats.base.HolderTuple'>
+statistic = 9.411845545485592
+pvalue = 0.00012379894210177455
+df = (2.0, 201.0)
+df_num = 2.0
+df_denom = 201.0
+nobs_t = 204.0
+n_groups = 3
+means = array([28.41111111, 31.59565217, 27.84027778])
+nobs = array([63., 69., 72.])
+vars_ = array([41.50584229, 29.54777494, 20.6984957 ])
+use_var = 'equal'
+welch_correction = True
+tuple = (9.411845545485592, 0.00012379894210177455)
+
+Post Hoc Test(Tukey's HSD Test)
+
+#Import the required libraries
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.stats.oneway as oneway
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+
+#Load the 'mpg' dataset from seaborn library
+mpg = sns.load_dataset('mpg')
+mpg.head()
+
+#Perform Tukey's test
+result = pairwise_tukeyhsd(endog = mpg['mpg'], groups = mpg['origin'], alpha=0.05)
+print(result)
+
+ Multiple Comparison of Means - Tukey HSD, FWER=0.05 
+=====================================================
+group1 group2 meandiff p-adj   lower    upper  reject
+-----------------------------------------------------
+europe  japan   2.5592 0.0404   0.0877  5.0307   True
+europe    usa  -7.8079    0.0  -9.8448  -5.771   True
+ japan    usa -10.3671    0.0 -12.3114 -8.4228   True
+-----------------------------------------------------
+
+#Also compare the 'mpg' by visualizing the average mileage
+figure = plt.figure(figsize = (3,3))
+sns.catplot(data = mpg, x = 'origin', y = 'mpg', kind = 'box')
+plt.show()
+
+Goodness of Fit Test(Chi Square)
+
+#Import required libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+
+#Define expected and observed value
+exp = [50, 50]
+obs = [40, 60]
+
+#Perform test
+statistic, pvalue = stats.chisquare(obs, exp)
+
+#Conclusion
+alpha = 0.05
+if pvalue >= alpha:
+  print('Fail to reject the null hypothesis.')
+else:
+  print('Reject the null hyptohesis.')
+
+Reject the null hyptohesis.
+
+Colab paid products - Cancel contracts here
+Made 1 formatting edit on line 10
